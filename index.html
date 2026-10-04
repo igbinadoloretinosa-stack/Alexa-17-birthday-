@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Alexa's Birthday 🎂</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: white;
+      background: linear-gradient(135deg, #ff4f81, #8e44ad);
+      overflow-x: hidden;
+    }
+
+    .container {
+      padding: 35px 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    .cake {
+      font-size: 80px;
+      animation: bounce 1.5s infinite;
+    }
+
+    h1 {
+      font-size: 38px;
+      margin: 10px 0;
+    }
+
+    .subtitle {
+      font-size: 18px;
+    }
+
+    .card {
+      margin-top: 25px;
+      padding: 25px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    button {
+      display: block;
+      width: 90%;
+      max-width: 330px;
+      margin: 15px auto;
+      padding: 14px;
+      border: none;
+      border-radius: 30px;
+      background: white;
+      color: #e84372;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .message {
+      line-height: 1.7;
+      margin-top: 20px;
+      animation: appear 0.7s ease;
+    }
+
+    #countdown {
+      font-size: 25px;
+      font-weight: bold;
+      margin: 15px;
+    }
+
+    .heart {
+      position: fixed;
+      top: -20px;
+      font-size: 20px;
+      animation: fall linear forwards;
+      pointer-events: none;
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      animation: confettiFall 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+
+    @keyframes confettiFall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="cake">🎂</div>
+
+    <h1>Happy Birthday, Alexa! 🎉</h1>
+
+    <p class="subtitle">
+      🚨 A very important birthday message has been detected 🚨
+    </p>
+
+    <div class="card">
+
+      <h2>🔐 Birthday Mission</h2>
+
+      <p>
+        Alexa, you've unlocked a secret birthday website.
+        But there's more to discover...
+      </p>
+
+      <button onclick="showMessage()">
+        💌 Open Your Message
+      </button>
+
+      <button onclick="showSecret()">
+        👀 Don't Press This
+      </button>
+
+      <button onclick="celebrate()">
+        🎉 Press For Chaos
+      </button>
+
+      <button onclick="showWish()">
+        🌟 Make A Birthday Wish
+      </button>
+
+      <div id="message" class="hidden message">
+        <h2>💖 For Alexa</h2>
+
+        <p>
+          Happy Birthday to an amazing friend! 🥳🎂
+        </p>
+
+        <p>
+          I hope today brings you plenty of laughter,
+          happiness, good memories and reasons to smile.
+        </p>
+
+        <p>
+          May this new chapter of your life be filled with
+          beautiful moments and amazing opportunities.
+        </p>
+
+        <p>
+          Keep being yourself, because you're honestly
+          one of a kind. ❤️
+        </p>
+
+        <h2>🎈 HAPPY BIRTHDAY ALEXA! 🎈</h2>
+      </div>
+
+      <div id="secret" class="hidden message">
+        <h2>😂 YOU ACTUALLY PRESSED IT!</h2>
+
+        <p>
+          I warned you not to press it...
+        </p>
+
+        <p>
+          Anyway, since you're already here:
+          you're officially awesome. 😎
+        </p>
+      </div>
+
+      <div id="wish" class="hidden message">
+        <h2>🌟 Birthday Wish Activated!</h2>
+
+        <p>
+          Close your eyes for a second and make a wish...
+        </p>
+
+        <p>
+          ✨ May something you've been hoping for
+          finally happen this year. ✨
+        </p>
+
+        <p>Now blow out the cake! 🕯️🎂</p>
+      </div>
+
+      <div id="countdown"></div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    function showMessage() {
+      document.getElementById("message").style.display = "block";
+    }
+
+    function showSecret() {
+      document.getElementById("secret").style.display = "block";
+    }
+
+    function showWish() {
+      document.getElementById("wish").style.display = "block";
+    }
+
+    function celebrate() {
+
+      // Hearts
+      for (let i = 0; i < 35; i++) {
+
+        let heart = document.createElement("div");
+
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration =
+          (2 + Math.random() * 3) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+
+      // Confetti
+      for (let i = 0; i < 70; i++) {
+
+        let confetti = document.createElement("div");
+
+        confetti.className = "confetti";
+
+        confetti.style.left = Math.random() * 100 + "vw";
+
+        confetti.style.animationDuration =
+          (2 + Math.random() * 2) + "s";
+
+        confetti.style.background =
+          "hsl(" + Math.random() * 360 + ", 100%, 60%)";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, 4000);
+      }
+    }
+
+  </script>
+
+</body>
+        </html>
